@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<configuration>
-	<dllmap dll="allegro-4.9.17.dll" target="/usr/local/lib/liballegro-4.9.17.dylib" os="osx" />
-	<dllmap dll="allegro_image-4.9.17.dll" target="/usr/local/lib/liballegro_image-4.9.17.dylib" os="osx" />
-	<dllmap dll="allegro_main-4.9.17.dll" target="/usr/local/lib/liballegro_main-4.9.17.dylib" os="osx" />
-	<dllmap dll="allegro-4.9.17.dll" target="/usr/local/lib/liballegro-4.9.17.so" os="linux" />
-	<dllmap dll="allegro_image-4.9.17.dll" target="/usr/local/lib/liballegro_image-4.9.17.so" os="linux" />
-	<dllmap dll="allegro_main-4.9.17.dll" target="/usr/local/lib/liballegro_main-4.9.17.so" os="linux" />
-</configuration>
