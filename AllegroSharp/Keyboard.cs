@@ -1,4 +1,5 @@
 using System;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
@@ -6,27 +7,22 @@ namespace AllegroSharp
 	{
 		public static bool Install()
 		{
-			return Bridge.al_install_keyboard();
+			return Allegro5.al_install_keyboard();
 		}
 		
-		public static EventSource EventSource
+		public static EventSource GetEventSource()
 		{
-			get
+			var eventSource = Allegro5.al_get_keyboard_event_source();
+			if (eventSource != IntPtr.Zero)
 			{
-				var eventSource = Bridge.al_get_keyboard_event_source();
-				if (eventSource != IntPtr.Zero)
-				{
-					return new EventSource(eventSource);
-				}
-				return null;
+				return new EventSource(eventSource);
 			}
+			return null;
 		}
 		
-		public static KeyboardState GetState()
+		public static void GetState(ref KeyboardState state)
 		{
-			KeyboardState state = new KeyboardState();
-			Bridge.al_get_keyboard_state(state);
-			return state;
+			Allegro5.al_get_keyboard_state(ref state);
 		}
 	}
 }

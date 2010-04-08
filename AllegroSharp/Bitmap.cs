@@ -1,104 +1,54 @@
 using System;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
 	public class Bitmap : IDisposable
 	{
-		public int Width
+        public readonly IntPtr Ptr;
+        public readonly int Width;
+        public readonly int Height;
+
+        public Bitmap(IntPtr ptr)
+        {
+            this.Ptr = ptr;
+            this.Width = Allegro5.al_get_bitmap_width(Ptr);
+            this.Height = Allegro5.al_get_bitmap_height(Ptr);
+        }
+
+        ~Bitmap()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Allegro5.al_destroy_bitmap(Ptr);
+        }
+
+		public void Draw(float dx, float dy, DrawFlags flags)
 		{
-			get
-			{
-				return Bridge.al_get_bitmap_width(Ptr);
-			}
+			Allegro5.al_draw_bitmap(Ptr, dx, dy, flags);
 		}
+
+        public void DrawPixel(float x, float y, Color color)
+        {
+            Allegro5.al_draw_pixel(x, y, color);
+        }
+
+        public Color GetPixel(int x, int y)
+        {
+            return Allegro5.al_get_pixel(Ptr, x, y);
+        }
 		
-		public int Height
-		{
-			get
-			{
-				return Bridge.al_get_bitmap_height(Ptr);
-			}
-		}
-		
-		public static Bitmap Load(string filename)
-		{
-			var bitmap = Bridge.al_load_bitmap(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public static Bitmap LoadBmp(string filename)
-		{
-			var bitmap = Bridge.al_load_bmp(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public static Bitmap LoadJpg(string filename)
-		{
-			var bitmap = Bridge.al_load_jpg(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public static Bitmap LoadPcx(string filename)
-		{
-			var bitmap = Bridge.al_load_pcx(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public static Bitmap LoadPng(string filename)
-		{
-			var bitmap = Bridge.al_load_png(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public static Bitmap LoadTga(string filename)
-		{
-			var bitmap = Bridge.al_load_tga(filename);
-			if (bitmap == IntPtr.Zero)
-			{
-				throw new Exception(String.Format("Failed to load bitmap {0}", filename));
-			}
-			return new Bitmap(bitmap);
-		}
-		
-		public void Draw(float dx, float dy, int flags)
-		{
-			Bridge.al_draw_bitmap(Ptr, dx, dy, flags);
-		}
-		
-		internal Bitmap(IntPtr ptr)
-		{
-			Ptr = ptr;
-		}
-		
-		public void Dispose()
-		{
-			if (Ptr != IntPtr.Zero)
-			{
-				Bridge.al_destroy_bitmap(Ptr);
-				Ptr = IntPtr.Zero;
-			}
-		}
-		
-		internal IntPtr Ptr = IntPtr.Zero;
+        public LockedRegion Lock(PixelFormat format, LockFlags flags)
+        {
+            var ptr = Allegro5.al_lock_bitmap(Ptr, format, flags);
+            if (ptr == IntPtr.Zero)
+            {
+                return null;
+            }
+            return new LockedRegion(ptr);
+        }
 	}
 }

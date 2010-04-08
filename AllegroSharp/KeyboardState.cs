@@ -1,29 +1,33 @@
 using System;
 using System.Runtime.InteropServices;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class KeyboardState
+	public struct KeyboardState
 	{
 		public bool KeyDown(Key key)
 		{
-			return Bridge.al_key_down(this, key);
+			return Allegro5.al_key_down(ref this, key);
 		}
 		
 		public Display Display
 		{
 			get
 			{
-				if (display == IntPtr.Zero)
-				{
-					return null;
-				}
-				return new Display(display);
+                if (display == IntPtr.Zero)
+                {
+                    return null;
+                }
+                return new Display(display);
 			}
 		}
-		private IntPtr display = IntPtr.Zero;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = Bridge.ALLEGRO_KEY_MAX)]
-		private uint[] data = new uint[Bridge.ALLEGRO_KEY_MAX];
+#pragma warning disable 0649
+		private readonly IntPtr display;
+#pragma warning restore 0649
+#pragma warning disable 0169
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = Allegro5.ALLEGRO_KEY_MAX)]
+		private readonly uint[] data;
+#pragma warning restore 0169
 	}
 }

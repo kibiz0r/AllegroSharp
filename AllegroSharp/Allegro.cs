@@ -1,71 +1,50 @@
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal delegate int RealAllegroMain(int argc, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] string[] argv);
-	
-	public delegate void AllegroMain(string[] argv);
-	
 	public static class Allegro
 	{
-		public static string Version
+		public static uint GetVersion()
 		{
-			get
-			{
-				var version = Bridge.al_get_version();
-				return String.Format("{0}.{1}.{2}", version >> 24, (version >> 16) & 255, (version >> 8) & 255);
-			}
+				return Allegro5.al_get_allegro_version();
 		}
 		
-		public static void Main(AllegroMain main)
+		public static void RunMain(Action main)
 		{
-			var args = Environment.GetCommandLineArgs();
-			var argsPtr = Marshal.AllocHGlobal(IntPtr.Size * args.Length);
-			var i = 0;
-			foreach (var arg in args)
-			{
-				var argPtr = Marshal.StringToCoTaskMemAnsi(arg);
-				Marshal.WriteIntPtr(argsPtr, i, argPtr);
-			}
-			Exception caught = null;
-			RealAllegroMain mainWrapper = delegate(int argc, string[] argv)
-			{
-				try
-				{
-					main(argv);
-				}
-				catch (Exception ex)
-				{
-					caught = ex;
-					return 1;
-				}
-				return 0;
-			};
-			Bridge.al_run_main(args.Length, argsPtr, mainWrapper);
-			if (caught != null)
-			{
-				throw caught;
-			}
+            var args = Environment.GetCommandLineArgs();
+            var argsPtr = Marshal.AllocHGlobal(IntPtr.Size * args.Length);
+            var i = 0;
+            foreach (var arg in args)
+            {
+                var argPtr = Marshal.StringToCoTaskMemAnsi(arg);
+                Marshal.WriteIntPtr(argsPtr, i, argPtr);
+            }
+            AllegroMain mainWrapper = delegate(int argc, string[] argv)
+            {
+                try
+                {
+                    main();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                return 0;
+            };
+            Allegro5.al_run_main(args.Length, argsPtr, mainWrapper);
 		}
 		
-		public static void Install()
+		public static bool InstallSystem()
 		{
-			if (!Bridge.al_install_system(IntPtr.Zero))
-			{
-				throw new Exception("Failed to install Allegro");
-			}
-			if (!Bridge.al_init_image_addon())
-			{
-				throw new Exception("Failed to init Image I/O");
-			}
+            return Allegro5.al_install_system(GetVersion(), IntPtr.Zero);
 		}
 		
 		public static void Uninstall()
 		{
-			Bridge.al_uninstall_system();
+			Allegro5.al_uninstall_system();
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
@@ -6,42 +7,42 @@ namespace AllegroSharp
 	{
 		public static Display Create(int width, int height)
 		{
-			var display = Bridge.al_create_display(width, height);
-			if (display != IntPtr.Zero)
+			var display = Allegro5.al_create_display(width, height);
+			if (display == IntPtr.Zero)
 			{
-				return new Display(display);
+				return null;
 			}
-			throw new Exception("Failed to create display");
+			return new Display(display);
 		}
 		
 		public static int Flags
 		{
 			get
 			{
-				return Bridge.al_get_display_flags();
+				return Allegro5.al_get_display_flags();
 			}
 		}
 		
 		public static void SetNewOption(int option, int value, int importance)
 		{
-			Bridge.al_set_new_display_option(option, value, importance);
+			Allegro5.al_set_new_display_option(option, value, importance);
 		}
 		
 		public static int GetOption(int option)
 		{
-			return Bridge.al_get_display_option(option);
+			return Allegro5.al_get_display_option(option);
 		}
 		
 		public static void Clear(Color color)
 		{
-			Bridge.al_clear_to_color(color);
+			Allegro5.al_clear_to_color(color);
 		}
 		
 		public static Display Current
 		{
 			get
 			{
-				var display = Bridge.al_get_current_display();
+				var display = Allegro5.al_get_current_display();
 				if (display != IntPtr.Zero)
 				{
 					return new Display(display);
@@ -58,11 +59,11 @@ namespace AllegroSharp
 		{
 			if (display == null)
 			{
-				return Bridge.al_set_current_display(IntPtr.Zero);
+				return Allegro5.al_set_current_display(IntPtr.Zero);
 			}
 			else
 			{
-				return Bridge.al_set_current_display(display.Ptr);
+				return Allegro5.al_set_current_display(display.Ptr);
 			}
 		}
 		
@@ -72,30 +73,30 @@ namespace AllegroSharp
 			{
 				if (value == null)
 				{
-					Bridge.al_set_display_icon(IntPtr.Zero);
+					Allegro5.al_set_display_icon(IntPtr.Zero);
 				}
 				else
 				{
-					Bridge.al_set_display_icon(value.Ptr);
+					Allegro5.al_set_display_icon(value.Ptr);
 				}
 			}
 		}
 		
 		public static void Flip()
 		{
-			Bridge.al_flip_display();
+			Allegro5.al_flip_display();
 		}
 		
 		public bool AcknowledgeResize()
 		{
-			return Bridge.al_acknowledge_resize(Ptr);
+			return Allegro5.al_acknowledge_resize(Ptr);
 		}
 		
 		public static Bitmap FrontBuffer
 		{
 			get
 			{
-				var bitmap = Bridge.al_get_frontbuffer();
+				var bitmap = Allegro5.al_get_frontbuffer();
 				if (bitmap != IntPtr.Zero)
 				{
 					return new Bitmap(bitmap);
@@ -108,7 +109,7 @@ namespace AllegroSharp
 		{
 			get
 			{
-				var bitmap = Bridge.al_get_backbuffer();
+				var bitmap = Allegro5.al_get_backbuffer();
 				if (bitmap != IntPtr.Zero)
 				{
 					return new Bitmap(bitmap);
@@ -121,7 +122,7 @@ namespace AllegroSharp
 		{
 			get
 			{
-				return Bridge.al_get_display_height();
+				return Allegro5.al_get_display_height();
 			}
 		}
 		
@@ -129,43 +130,43 @@ namespace AllegroSharp
 		{
 			get
 			{
-				return Bridge.al_get_display_width();
+				return Allegro5.al_get_display_width();
 			}
 		}
 		
 		public void GetWindowPosition(out int x, out int y)
 		{
-			Bridge.al_get_window_position(Ptr, out x, out y);
+			Allegro5.al_get_window_position(Ptr, out x, out y);
 		}
 		
 		public static bool InhibitScreensaver(bool inhibit)
 		{
-			return Bridge.al_inhibit_screensaver(inhibit);
+			return Allegro5.al_inhibit_screensaver(inhibit);
 		}
 		
 		public static bool Resize(int width, int height)
 		{
-			return Bridge.al_resize_display(width, height);
+			return Allegro5.al_resize_display(width, height);
 		}
 		
 		public static string Title
 		{
 			set
 			{
-				Bridge.al_set_window_title(value);
+				Allegro5.al_set_window_title(value);
 			}
 		}
 		
 		public static bool WaitForVSync()
 		{
-			return Bridge.al_wait_for_vsync();
+			return Allegro5.al_wait_for_vsync();
 		}
 		
 		public EventSource EventSource
 		{
 			get
 			{
-				var eventSource = Bridge.al_get_display_event_source(Ptr);
+				var eventSource = Allegro5.al_get_display_event_source(Ptr);
 				if (eventSource != IntPtr.Zero)
 				{
 					return new EventSource(eventSource);
@@ -183,7 +184,7 @@ namespace AllegroSharp
 		{
 			if (Ptr != IntPtr.Zero)
 			{
-				Bridge.al_destroy_display(Ptr);
+				Allegro5.al_destroy_display(Ptr);
 				Ptr = IntPtr.Zero;
 			}
 		}
