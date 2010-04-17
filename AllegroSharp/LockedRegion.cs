@@ -1,18 +1,22 @@
 using System;
+using AllegroSharp.Bridge;
 
 namespace AllegroSharp
 {
-    public sealed class LockedRegion
+    public sealed class LockedRegion : IDisposable
     {
         public IntPtr Ptr { get; set; }
+        internal Bitmap Bitmap { get; set; }
         
-        public LockedRegion()
-        {
-        }
-
-        public LockedRegion(IntPtr ptr)
+        internal LockedRegion(IntPtr ptr, Bitmap bitmap)
         {
             this.Ptr = ptr;
+            this.Bitmap = bitmap;
+        }
+
+        public void Dispose()
+        {
+            Allegro5.al_unlock_bitmap(Bitmap.Ptr);
         }
     }
 }

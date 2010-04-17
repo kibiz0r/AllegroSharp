@@ -44,7 +44,6 @@
     <Compile Include="KeyboardState.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Blender.cs" />
-    <Compile Include="BlenderFunction.cs" />
     <Compile Include="Bridge\Allegro5.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="DrawFlags.cs" />
@@ -55,6 +54,14 @@
     <Compile Include="Bridge\AllegroMain.cs" />
     <Compile Include="Bridge\ImageIOAddon.cs" />
     <Compile Include="Bridge\PrimitivesAddon.cs" />
+    <Compile Include="BlendMode.cs" />
+    <Compile Include="Bridge\FontAddon.cs" />
+    <Compile Include="Font.cs" />
+    <Compile Include="Ttf.cs" />
+    <Compile Include="Bridge\TtfAddon.cs" />
+    <Compile Include="TtfFlags.cs" />
+    <Compile Include="FontDrawFlags.cs" />
+    <Compile Include="BlendOperation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

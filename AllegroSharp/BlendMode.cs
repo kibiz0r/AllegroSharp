@@ -2,7 +2,7 @@ using System;
 
 namespace AllegroSharp
 {
-	public enum BlenderFunction
+	public enum BlendMode
 	{
 		Zero = 0,
 		One = 1,

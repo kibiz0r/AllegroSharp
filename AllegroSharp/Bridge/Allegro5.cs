@@ -31,6 +31,9 @@ namespace AllegroSharp.Bridge
         public static extern IntPtr al_lock_bitmap(IntPtr bitmap, PixelFormat format, LockFlags flags);
 
         [DllImport(Dll)]
+        public static extern void al_unlock_bitmap(IntPtr bitmap);
+
+        [DllImport(Dll)]
         public static extern void al_draw_pixel(float x, float y, Color color);
 
         [DllImport(Dll)]
@@ -46,10 +49,10 @@ namespace AllegroSharp.Bridge
         public static extern int al_get_bitmap_height(IntPtr bitmap);
         
         [DllImport(Dll)]
-        public static extern void al_get_blender(out BlenderFunction src, out BlenderFunction dst, out Color color);
+        public static extern void al_get_blender(out BlendOperation op, out BlendMode src, out BlendMode dst, out Color color);
         
         [DllImport(Dll)]
-        public static extern void al_set_blender(BlenderFunction src, BlenderFunction dst, Color color);
+        public static extern void al_set_blender(BlendOperation op, BlendMode src, BlendMode dst, Color color);
 
         [DllImport(Dll)]
         public static extern IntPtr al_create_display(int w, int h);

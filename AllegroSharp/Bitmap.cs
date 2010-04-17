@@ -48,7 +48,7 @@ namespace AllegroSharp
             {
                 return null;
             }
-            return new LockedRegion(ptr);
+            return new LockedRegion(ptr, this);
         }
 	}
 }

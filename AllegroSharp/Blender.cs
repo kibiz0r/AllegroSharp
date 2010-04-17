@@ -5,14 +5,14 @@ namespace AllegroSharp
 {
 	public static class Blender
 	{
-		public static void Get(out BlenderFunction source, out BlenderFunction destination, out Color color)
+		public static void Get(out BlendOperation operation, out BlendMode source, out BlendMode destination, out Color color)
 		{
-			Allegro5.al_get_blender(out source, out destination, out color);
+			Allegro5.al_get_blender(out operation, out source, out destination, out color);
 		}
 		
-		public static void Set(BlenderFunction source, BlenderFunction destination, Color color)
+		public static void Set(BlendOperation operation, BlendMode source, BlendMode destination, Color color)
 		{
-			Allegro5.al_set_blender(source, destination, color);
+			Allegro5.al_set_blender(operation, source, destination, color);
 		}
 	}
 }
