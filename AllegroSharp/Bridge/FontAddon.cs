@@ -5,7 +5,7 @@ namespace AllegroSharp.Bridge
 {
     public static class FontAddon
     {
-        public const string Dll = "allegro_font.4.9.dll";
+        public const string Dll = "allegro_font-4.9.dll";
 
         [DllImport(Dll)]
         public static extern void al_init_font_addon();
