@@ -125,5 +125,17 @@ namespace AllegroSharp.Bridge
         
         [DllImport(Dll)]
         public static extern bool al_key_down(ref KeyboardState state, Key keyCode);
+
+        [DllImport(Dll)]
+        public static extern IntPtr al_create_event_queue();
+
+        [DllImport(Dll)]
+        public static extern void al_register_event_source(IntPtr eventQueue, IntPtr eventSource);
+
+        [DllImport(Dll)]
+        public static extern IntPtr al_create_event();
+
+        [DllImport(Dll)]
+        public static extern bool al_get_next_event(IntPtr eventSource, IntPtr @event);
 	}
 }
