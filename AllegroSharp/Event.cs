@@ -1,21 +1,16 @@
 using System;
 using AllegroSharp.Bridge;
+using System.Runtime.InteropServices;
 
 namespace AllegroSharp
 {
-    public class Event
+    public struct Event
     {
-        public static Event Create()
-        {
-            return new Event(Allegro5.al_create_event());
-        }
-
-        internal Event(IntPtr ptr)
-        {
-            Ptr = ptr;
-        }
-
-        internal IntPtr Ptr = IntPtr.Zero;
+        public EventType Type;
+        public IntPtr Source;
+        public double TimeStamp;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+        public IntPtr[] Data;
     }
 }
 

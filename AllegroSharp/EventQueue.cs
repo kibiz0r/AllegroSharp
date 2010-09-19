@@ -24,7 +24,7 @@ namespace AllegroSharp
 
         public bool GetNextEvent(ref Event @event)
         {
-            return Allegro5.al_get_next_event(Ptr, @event.Ptr);
+            return Allegro5.al_get_next_event(Ptr, ref @event);
         }
     }
 }

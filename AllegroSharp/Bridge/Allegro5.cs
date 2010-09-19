@@ -136,6 +136,6 @@ namespace AllegroSharp.Bridge
         public static extern IntPtr al_create_event();
 
         [DllImport(Dll)]
-        public static extern bool al_get_next_event(IntPtr eventSource, IntPtr @event);
+        public static extern bool al_get_next_event(IntPtr eventSource, ref Event @event);
 	}
 }

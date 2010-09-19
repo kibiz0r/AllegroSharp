@@ -69,6 +69,7 @@
     <Compile Include="BlendOperation.cs" />
     <Compile Include="EventQueue.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
