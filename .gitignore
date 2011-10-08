@@ -1,1 +1,4 @@
 .userprefs
+*.pidb
+bin
+obj
