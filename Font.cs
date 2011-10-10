@@ -12,9 +12,9 @@ namespace AllegroSharp
             this.Ptr = ptr;
         }
 
-        public void Draw(float x, float y, FontDrawFlags flags, string text)
+        public void Draw(Color color, float x, float y, FontDrawFlags flags, string text)
         {
-            FontAddon.al_draw_text(Ptr, x, y, flags, text);
+            FontAddon.al_draw_text(Ptr, color, x, y, flags, text);
         }
 
         public static void Init()

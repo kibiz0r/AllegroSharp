@@ -5,7 +5,7 @@ namespace AllegroSharp.Bridge
 {
 	public static class Allegro5
 	{
-		public const string Dll = "allegro-4.9.dll";
+		public const string Dll = "allegro-5.dll";
 
         public const int ALLEGRO_KEY_MAX = 8;
 		

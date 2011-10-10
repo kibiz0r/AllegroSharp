@@ -5,7 +5,7 @@ namespace AllegroSharp.Bridge
 {
     public static class TtfAddon
     {
-        public const string Dll = "allegro_ttf-4.9.dll";
+        public const string Dll = "allegro_ttf-5.dll";
 
         [DllImport(Dll)]
         public static extern bool al_init_ttf_addon();

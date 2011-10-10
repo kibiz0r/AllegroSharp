@@ -5,7 +5,7 @@ namespace AllegroSharp.Bridge
 {
     public static class ImageIOAddon
     {
-        public const string Dll = "allegro_image-4.9.dll";
+        public const string Dll = "allegro_image-5.dll";
 
         [DllImport(Dll)]
         public static extern bool al_init_image_addon();
