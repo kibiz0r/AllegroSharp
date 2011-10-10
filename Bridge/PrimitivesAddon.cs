@@ -8,6 +8,9 @@ namespace AllegroSharp.Bridge
         public const string Dll = "allegro_primitives-5.dll";
 
         [DllImport(Dll)]
+        public static extern bool al_init_primitives_addon();
+
+        [DllImport(Dll)]
         public static extern void al_draw_line(float x1, float y1, float x2, float y2, Color color, float thickness);
 
         [DllImport(Dll)]
