@@ -118,19 +118,19 @@ namespace AllegroSharp
 			}
 		}
 		
-		public static int Height
+		public int Height
 		{
 			get
 			{
-				return Allegro5.al_get_display_height();
+				return Allegro5.al_get_display_height(Ptr);
 			}
 		}
 		
-		public static int Width
+		public int Width
 		{
 			get
 			{
-				return Allegro5.al_get_display_width();
+				return Allegro5.al_get_display_width(Ptr);
 			}
 		}
 		

@@ -76,10 +76,10 @@ namespace AllegroSharp.Bridge
         public static extern IntPtr al_get_current_display();
         
         [DllImport(Dll)]
-        public static extern int al_get_display_height();
+        public static extern int al_get_display_height(IntPtr display);
         
         [DllImport(Dll)]
-        public static extern int al_get_display_width();
+        public static extern int al_get_display_width(IntPtr display);
         
         [DllImport(Dll)]
         public static extern void al_get_window_position(IntPtr display, out int x, out int y);
